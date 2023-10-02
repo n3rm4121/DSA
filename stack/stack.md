@@ -38,9 +38,9 @@ Happens if you attempt to pop from an empty stack-> stack underflow.
 Happens if you attempt to push onto a stack that has reached its max size(array based implementation) -> stack overflow
 
 #### Application:
-- Managing function calls in programming languages,
-- Parsing expressions,
-- backtracking algorithms like depth-first search(DFS).
+- To reverse a word
+- Compilers use stack to calculate the value of expressions like `2 + 4 / 5 * ( 7 - 9 )` by converting expression to prefix or postfix form.
+- In browsers : the back button saves all urls you have visited previously in a stack. Each time you visit a new page, it is added on top of the stack. When you press the back button, the current URL is removed from the stack, and the previous URL is accessed.
 
 #### Complexity: 
 Usually O(1)
