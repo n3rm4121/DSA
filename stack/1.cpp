@@ -1,4 +1,4 @@
-// stack implementation in c++
+// std::stack implementation in c++
 
 #include <iostream>
 #include <stack>
@@ -35,6 +35,7 @@ int main(){
         myStack.pop();
     }
     
+    
     // check if the stack is empty again
     if (myStack.empty()){
         cout << "Stack is empty.\n";
@@ -42,5 +43,6 @@ int main(){
         cout << "Stack is not empty.\n";
     }
 
+    myStack.emplace(3);
     return 0;   
 }
