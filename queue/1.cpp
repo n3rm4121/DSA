@@ -63,6 +63,10 @@ class Queue{
                 }
         }
         
+        void front_element(){
+            cout <<"front element is: "<<  arr[front] << endl;
+        }
+
         // function to display elements of queue
         void display(){
             if(front == -1 || isEmpty()){
@@ -88,7 +92,7 @@ int main(){
     d1.enqueue(4);
     d1.enqueue(5);
     d1.enqueue(6);
-
+    d1.front_element();
     d1.display();
 
     d1.dequeue();
