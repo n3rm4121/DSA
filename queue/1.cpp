@@ -1,107 +1,87 @@
 #include <iostream>
 using namespace std;
+const int maxSize = 5;
 
-const int n = 5;
-class Queue{
-    int arr[n];
-    int rear,front;
+class queue {
+private:
+    int arr[maxSize]{};
+    int rear;
+    int front;
 
-    public: 
-    
-        Queue() : rear(-1), front(-1){}
+public:
+    queue() {
+        rear = -1;
+        front = -1;
+    }
 
-        // checking if queue is full
-        bool isFull(){
-            if(rear == n-1){
-                return true;
-            }else
-            return false;
+    bool isFull() {
+        return rear == maxSize-1;
+    }
+
+    void enqueue(int item) {
+        if (isFull()) {
+            cout << "\nOverflow!" << endl;
+            return;
+        } else {
+            if (front == -1 && rear == -1) {
+                front = rear = 0;
+            } else {
+                rear++;
+            }
+            cout << "\nElement inserted : " << item;
+            arr[rear] = item;
         }
+    }
 
-        // checking if queue is empty
-        bool isEmpty(){
-            if(front > rear || front == -1){
-                return true;
-            }else{
-                return false;
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "\nUnderflow!" << endl;
+            return;
+        } else {
+            cout << "\nElement deleted: " << arr[front] << endl;
+            if (front == rear) {
+                front = rear = -1;
+            } else {
+                front++;
             }
         }
+    }
 
-        // function to implement enqueue operation
-        void enqueue(int item){
-            if(isFull()){
-                cout << "Overflow!" << endl;
-                return;
-            }else{
-                if(front == -1 && rear == -1){
-                    front = 0;
-                    rear = 0;
-                }else{
-                    rear++;
-                 
-                }
-                cout << "Element inserted! at index: " << rear << endl;
-                arr[rear] = item;
-                
-            }
-        }
-
-        // function to implement dequeue operation
-        void dequeue(){
-            if(isEmpty()){
-                cout << "Underflow!";
-                return;
-            }else
-                {
-                    int item = arr[front];
-                    cout << "Item being deleted: " << item << endl;
-                    if(front == rear){
-                        front = -1;
-                        rear = -1;
-                    }else
-                        front++;
-                }
-        }
-        
-        void front_element(){
-            cout <<"front element is: "<<  arr[front] << endl;
-        }
-
-        // function to display elements of queue
-        void display(){
-            if(front == -1 || isEmpty()){
-                cout << "\nThe array is empty\n";
-            }else{
-                cout << "The elements are: " << endl;
-            for (int i = front; i <= rear; i++)
-            {
+    void display() {
+        cout << "\nFront index -> " << front << endl;
+        cout << "rear index -> " << rear << endl;
+        if (!isEmpty()) {
+            cout << "Elements are: \n";
+            for (int i = front; i <= rear; i++) {
                 cout << arr[i] << " ";
             }
-                cout << endl;
-            }
+        } else {
+            cout << "queue is empty\n";
         }
-       
-
+    }
 };
+int main() {
+    queue q;
+    cout << "\nPerforming enqueue operation\n";
+    q.enqueue(3);
+    q.enqueue(4);
+    q.enqueue(5);
+    q.enqueue(6);
+    q.enqueue(7);
+    q.enqueue(3);
+    q.display();
+    cout << "\nPerforming dequeue operation\n";
+    q.dequeue();
+    q.dequeue();
+    q.dequeue();
 
-int main(){
-    Queue d1;
-    d1.enqueue(1);
-    d1.enqueue(2);
-    d1.enqueue(3);
-    d1.enqueue(4);
-    d1.enqueue(5);
-    d1.enqueue(6);
-    d1.front_element();
-    d1.display();
-
-    d1.dequeue();
-    d1.dequeue();
-    d1.dequeue();
-    d1.dequeue();
-    d1.dequeue();
-    d1.dequeue();
+    q.display();
     
-    d1.display();
-    return 0;
+    q.dequeue();
+    q.enqueue(2);
+    q.display();
 }
