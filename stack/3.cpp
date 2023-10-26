@@ -46,7 +46,7 @@ public:
         }
         else
         {
-            cout << head->data;
+            cout << "Top element is: " << head->data << endl;
         }
     }
 
@@ -88,8 +88,10 @@ int main()
     stack s;
     s.push(3);
     s.push(4);
-    
+    s.top();
     s.display();
     s.pop();
     s.display();
+    
+
 }
