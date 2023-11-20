@@ -1,39 +1,62 @@
 #include <iostream>
 using namespace std;
-
-class node
-{
-public:
-    int data;
-    node *left;
-    node *right;
-
-    node(int data){
+class Node{
+    public:
+        int data;
+        Node* left;
+        Node* right;
+    Node(int data){
         this -> data = data;
-        this -> left = NULL;
-        this -> right = NULL;
+        left = nullptr;
+        right = nullptr;
     }
 };
-node* buildTree(node* root)
-{
-    int data;
-    cout << "Enter the data: ";
-    cin >> data;
-    node* root = new node(data);
-    if(data == -1)
-    {
-        return NULL;
-    }
-    cout << "Enter data for inserting in left of " << data << ": ";
-    root -> left = buildTree(root->left);
-    cout << "Enter data for inserting in right of " << data << ": ";
-    root -> right = buildTree(root -> right);
-    return root;
 
+// preorder traversal
+void preOrder(Node* node)
+{
+    
+    if(node==nullptr){
+        return;
+    }
+    cout << node->data << "->";
+    preOrder(node->left);
+    preOrder(node->right);
 }
 
-int main()
+// inOrder traversal
+void inOrder(Node* node)
 {
-    node* root = NULL;
-    root = buildTree(root);
+    if(node==nullptr){
+        return;
+    }
+    inOrder(node->left);
+    cout << node->data << "->";
+    inOrder(node->right);
+    
+}
+
+void postOrder(Node* node){
+    if(node== nullptr){
+        return;
+    }
+    postOrder(node->left);
+    postOrder(node->right);
+    cout << node-> data << "->";
+}
+int main() {
+   Node* root = new Node(1);
+   root->left = new Node(12);
+   root->right = new Node(9);
+   root->left->left = new Node(5);
+   root->left -> right = new Node(6);
+    cout << "preOrder traversal: " << endl;
+   preOrder(root);
+   cout << endl;
+   cout << "inOrder traversal: " << endl;
+   inOrder(root);
+   cout << endl ;
+   cout << "postOrder: "<< endl;
+   postOrder(root);
+   cout << endl;
 }
