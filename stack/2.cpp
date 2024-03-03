@@ -47,7 +47,7 @@ public:
     }
 
     void showarray(){
-        for (int i = 0; i < MAX_SIZE; i++)
+        for (int i = 0; i < top; i++)
         {
             std::cout << arr[i] << " " ;
         }
