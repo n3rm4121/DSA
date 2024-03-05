@@ -1,96 +1,89 @@
 #include <iostream>
-
 using namespace std;
 
-const int MAX_SIZE = 5;
+const int maxSize = 5;
 
-class CircularQueue {
-private:
+class Queue {
+    int arr[maxSize]{};
     int front, rear;
-    int arr[MAX_SIZE];
-public:
-    CircularQueue() {
-        front = -1;
-        rear = -1;
-    }
-    bool isFull() {
-        // for circular queue full condition
 
-        return (rear + 1 ) % MAX_SIZE == front;
-       
+public:
+    Queue() {
+        front = rear = -1;
+    }
+
+    bool isFull() {
+        if ((rear + 1) % maxSize == front) {
+            return true;
+        }
+        return false;
     }
 
     bool isEmpty() {
-        return front == -1;
+        if (front == -1 && rear == -1) {
+            return true;
+        }
+        return false;
     }
 
-    void enqueue(int x) {
+    void push(int data) {
         if (isFull()) {
-            cout << "Queue is full." << endl;
-        } else
-            if(isEmpty()){
-                front = 0;
-              
-            }
-        else    
-         rear = (rear + 1) % MAX_SIZE;
-         arr[rear] = x;
-
-    }
-    void dequeue() {
-        if (isEmpty()) {
-            cout << "Queue is empty." << endl;
+            cout << "Overflow\n";
             return;
-        } else
-            if(front == rear){
-                front = -1;
-                rear = -1;
-            }else
-                rear  = (rear - 1) % MAX_SIZE ; // to maintain circular loop
-
-                
-           front++;
-           
-            
+        }
+        else if (isEmpty()) {
+            front = rear = 0;
+        }
+        else {
+            rear = (rear + 1) % maxSize;
+        }
+        arr[rear] = data;
     }
+
+    void pop() {
+        if (isEmpty()) {
+            cout << "Underflow\n";
+            return;
+        }
+        else if (front == rear) {
+            front = rear = -1;
+        }
+        else {
+            front = (front + 1) % maxSize;
+        }
+    }
+
     void display() {
         if (isEmpty()) {
-            cout << "Queue is empty." << endl;
+            cout << "Empty Queue\n";
             return;
-        } else {
-            cout << "Elements in the queue: ";
-            int i;
-            for (i = front; i != rear; i = (i + 1) % MAX_SIZE) {
-                cout << arr[i] << " ";
-            }
-            cout << arr[i] << endl;
         }
+        int i = front;
+        cout << "Queue: ";
+        do {
+            cout << arr[i] << " ";
+            i = (i + 1) % maxSize;
+        } while (i != (rear + 1) % maxSize);
+        cout << endl;
+
+        cout << "Front index: " << front << "\nRear index: " << rear << endl;
     }
 };
 
 int main() {
-    CircularQueue q;
-    q.enqueue(3);
-    q.display();
-    q.enqueue(4);
-    q.display();
-    q.enqueue(5);
-    q.display();
-    q.enqueue(6);
-    q.display();
-    // q.enqueue(7);
+    Queue q;
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    q.push(4);
+    q.push(5);
 
-
-    
-    q.dequeue();
-
+    q.pop();
+    q.pop();
+    q.pop();
+    q.pop();
+    q.pop();
     q.display();
 
-    q.dequeue();
-
-    q.display();
-
-    q.enqueue(3);
-    q.enqueue(4);
-    q.display();
+    return 0;
 }
