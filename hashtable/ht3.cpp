@@ -70,9 +70,9 @@ public:
 };
 
 int main(){
-	HashMap map(10);
+    HashMap map(10);
 
-	map.insert(1, 10);
+    map.insert(1, 10);
     map.insert(2, 20);
     map.insert(3, 30);
     map.insert(11, 110);
