@@ -1,3 +1,5 @@
+// checking if binary tree is full binary tree
+
 #include <iostream>
 using namespace std;
 
