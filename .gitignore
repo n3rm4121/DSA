@@ -1,4 +1,6 @@
 *.exe
-
+*.o 
+*.a 
+*.so 
 test.cpp 
 
