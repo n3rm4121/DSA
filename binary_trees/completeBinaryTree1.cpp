@@ -43,7 +43,7 @@ bool check(Node* node, int index, int nodeNumber){
 int main(){
 //          1
 //        /   \
-//       2     3                                                                               
+//       2     3
 //      / \   / \
 //     4   5 6   7
 //    / \
