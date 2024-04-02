@@ -36,6 +36,22 @@ class graph{
                
             }
         }
+        void DFSUtil(int start, unordered_set<int> &visited){
+            visited.insert(start);
+            cout << start << " ";
+
+            for(auto neighbour : adj[start]){
+                if(visited.find(neighbour) == visited.end()){
+                    DFSUtil(neighbour, visited);
+                }
+            }
+            
+        }
+
+        void DFS(int start){
+            unordered_set<int> visited;
+            DFSUtil(start, visited);
+        }
         void print(){
             for(auto& i : adj){
                 cout << i.first << "->";
@@ -63,6 +79,10 @@ int main() {
         cin >> u >> v;
         g.addEdge(u,v,dir);
     }
+    cout << "BFS traversal: ";
     g.BFS(0);
+    cout << endl;
+    cout << "DFS traversal : ";
+    g.DFS(0);
     return 0;
 }
