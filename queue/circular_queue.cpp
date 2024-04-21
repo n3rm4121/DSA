@@ -13,7 +13,7 @@ public:
     }
 
     bool isFull() {
-        if ((rear + 1) % maxSize == front) {
+        if (front == 0 && rear = maxSize - 1) || (rear + 1) % maxSize == front) {
             return true;
         }
         return false;
