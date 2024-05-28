@@ -1,75 +1,80 @@
 #include <iostream>
 using namespace std;
-class Node
-{
+
+class Node {
 public:
     int data;
     Node *next;
     Node *prev;
 
-    Node(int data)
-    {
+    Node(int data) {
         this->data = data;
         this->next = nullptr;
         this->prev = nullptr;
     }
 };
-class list
-{
 
+class list {
     Node *head;
     Node *tail;
 
 public:
-    list()
-    {
+    list() {
         this->head = nullptr;
         this->tail = nullptr;
     }
-    void insertAtHead(int data)
-    {
+
+    void insertAtHead(int data) {
         Node *n = new Node(data);
 
-        if (head == nullptr && tail == nullptr)
-        {
+        if (head == nullptr && tail == nullptr) {
             head = n;
             tail = n;
-        }
-        else
-        {
+            head->next = tail;
+            head->prev = tail;
+            tail->next = head;
+            tail->prev = head;
+        } else {
             n->next = head;
+            n->prev = tail;
             head->prev = n;
+            tail->next = n;
             head = n;
         }
     }
 
-    void insertAtTail(int data)
-    {
+    void insertAtTail(int data) {
         Node *n = new Node(data);
-        tail->next = n;
-        n->prev = tail;
-        tail = n;
+
+        if (head == nullptr && tail == nullptr) {
+            head = n;
+            tail = n;
+            head->next = tail;
+            head->prev = tail;
+            tail->next = head;
+            tail->prev = head;
+        } else {
+            tail->next = n;
+            n->prev = tail;
+            n->next = head;
+            head->prev = n;
+            tail = n;
+        }
     }
 
-    void insertAtPosition(int data, int position)
-    {
-        if (position == 1)
-        {
+    void insertAtPosition(int data, int position) {
+        if (position == 1) {
             insertAtHead(data);
             return;
-        }
-        else
-        {
+        } else {
             int count = 1;
             Node *temp = head;
-            while (count != position - 1 && temp != nullptr)
-            {
+            while (count != position - 1 && temp->next != head) {
                 temp = temp->next;
                 count++;
             }
 
-            if (temp == nullptr)
-            {
+            if (temp->next == head && count != position - 1) {
                 cout << "Position out of range, inserting at the end\n";
                 insertAtTail(data);
                 return;
@@ -78,30 +83,26 @@ public:
             Node *n = new Node(data);
             n->next = temp->next;
             n->prev = temp;
+            temp->next->prev = n;
             temp->next = n;
         }
     }
 
-    void display()
-    {
-        if (head == nullptr)
-        {
+    void display() {
+        if (head == nullptr) {
             cout << "List is empty\n";
             return;
         }
         Node *current = head;
-        while (current != nullptr)
-        {
+        do {
             cout << current->data << " <-> ";
             current = current->next;
-        }
-        cout << "nullptr\n";
+        } while (current != head);
+        cout << "Head\n";
     }
 
-    void deleteNodeAtPosition(int position)
-    {
-        if (head == nullptr)
-        {
+    void deleteNodeAtPosition(int position) {
+        if (head == nullptr) {
             cout << "List is empty\n";
             return;
         }
@@ -109,42 +110,40 @@ public:
         int count = 1;
         Node *current = head;
 
-        while (count < position && current->next != nullptr)
-        {
+        while (count < position && current->next != head) {
             current = current->next;
             count++;
         }
-        if (current == nullptr)
-        {
+        if (count != position) {
             cout << "Position out of range\n";
             return;
         }
-        if (current == head)
-        {
-            head = current->next;
-        }
-        else
-        {
-            current->prev->next = current->next;
-        }
-        if (current == tail)
-        {
-            tail = current->prev;
-        }
-        else
-        {
-            current->next->prev = current->prev;
-        }
 
-        delete current;
+        if (head == tail) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+        } else if (current == head) {
+            head = head->next;
+            head->prev = tail;
+            tail->next = head;
+            delete current;
+        } else if (current == tail) {
+            tail = tail->prev;
+            tail->next = head;
+            head->prev = tail;
+            delete current;
+        } else {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+            delete current;
+        }
     }
 };
 
-int main()
-{
+int main() {
     list l;
-    while (true)
-    {
+    while (true) {
         cout << "What do you want to do: " << endl;
         cout << "1. Insert at Head\n"
              << "2. Insert at Tail\n"
@@ -154,8 +153,7 @@ int main()
              << "6. Exit\n";
         int choice;
         cin >> choice;
-        switch (choice)
-        {
+        switch (choice) {
         case 1:
             cout << "Enter data: ";
             int data;
