@@ -10,7 +10,6 @@ void bubbleSort(int* arr, int size)
     {
         for (size_t j = 0; j < size - i - 1; j++)
         {
-            // cout << "comparing: " << arr[i] << " " << arr[j] << endl;
             if (arr[j] > arr[j+1])
             {
                 int temp = arr[j];
