@@ -6,15 +6,16 @@ using namespace std;
 void bubbleSort(int* arr, int size)
 {
 
-    for (size_t i = 0; i < size - 1; i++)
+    for (size_t i = 0; i < size; i++)
     {
-        for (size_t j = i + 1; j < size; j++)
+        for (size_t j = 0; j < size - i - 1; j++)
         {
             // cout << "comparing: " << arr[i] << " " << arr[j] << endl;
-            if (arr[j] < arr[i])
+            if (arr[j] > arr[j+1])
             {
-                //cout << "swapping: " << arr[i] << " and " << arr[j] << endl;
-                swap(arr[i], arr[j]);
+                int temp = arr[j];
+                arr[j]  = arr[j+1]
+                arr[j+1] = temp;
             }
         }
     }
